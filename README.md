@@ -32,8 +32,8 @@ pnpm test:unit
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
-```sh
 no alncance a probar los test e2e, me hubiera gustado poder conectar el front con el back aca.
+```sh
 pnpm test:e2e:dev
 ```
 
