@@ -23,7 +23,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -31,12 +31,15 @@ import { useTripStore } from '../stores/trips.store'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import '../assets/trip-detail.css'
+import type { Ref } from 'vue'
+import type { Trip } from '../types/api'
+import marker from '../assets/marker.svg'
 
 const route = useRoute()
 const tripStore = useTripStore()
 const { trips } = storeToRefs(tripStore)
 
-const trip = ref({
+const trip: Ref<Trip> = ref({
     _id: '',
     start: {
         time: 0,
@@ -65,8 +68,16 @@ onMounted(async () => {
     if (trips.value.length === 0 ) {
         await tripStore.fetchTrips({})
     }
-    trip.value = trips.value.find(t => t._id === route.params.id)
+    trip.value = trips.value.find(t => t._id === route.params.id) ?? trip.value
     initMap()
+})
+
+const markerIcon = L.icon({
+    iconUrl: marker,
+
+    iconSize: [25, 41],
+    iconAnchor: [12, 31],
+    popupAnchor: [1, -34]
 })
 
 const initMap = () => {
@@ -79,13 +90,13 @@ const initMap = () => {
     }).addTo(map)
 
     // Marcador de inicio
-    L.marker([trip.value.start.lat, trip.value.start.lon])
+    L.marker([trip.value.start.lat, trip.value.start.lon], {icon: markerIcon})
         .addTo(map)
         .bindPopup('Inicio')
         .openPopup()
 
     // Marcador de fin
-    L.marker([trip.value.end.lat, trip.value.end.lon])
+    L.marker([trip.value.end.lat, trip.value.end.lon], {icon: markerIcon})
         .addTo(map)
         .bindPopup('Fin')
 
@@ -100,14 +111,14 @@ const initMap = () => {
     map.fitBounds(bounds)
 }
 
-const formatDate = (timestamp) => {
+const formatDate = (timestamp : number) => {
     const date = new Date(timestamp)
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes()
         .toString().padStart(2, '0')} - ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
         .toString().padStart(2, '0')}/${date.getFullYear()}`
 }
 
-const formatDuration = (milliseconds) => {
+const formatDuration = (milliseconds : number) => {
     const minutes = Math.floor(milliseconds / 60000)
     return `${minutes} minutos`
 }
