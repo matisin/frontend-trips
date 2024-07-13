@@ -48,7 +48,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { watch, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -66,9 +66,9 @@ onMounted(() => {
 })
 
 const fetchTrips = async () => {
-    const gte = filters.value.desde !== ""  ? new Date(filters.value.desde).getTime() : null
-    const lte = filters.value.hasta !== ""  ? new Date(filters.value.hasta).getTime() : null
-    if (gte !== null && lte !== null && gte > lte) {
+    const gte = filters.value.desde !== ""  ? new Date(filters.value.desde).getTime() : undefined
+    const lte = filters.value.hasta !== ""  ? new Date(filters.value.hasta).getTime() : undefined
+    if (gte !== undefined && lte !== undefined && gte > lte) {
         alert('La fecha hasta no puede ser menor a desde')
         return
     }
@@ -87,19 +87,19 @@ const borrarFiltros = () => {
     fetchTrips()
 }
 
-const formatDate = (timestamp) => {
+const formatDate = (timestamp: number) => {
     const date = new Date(timestamp)
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString()
         .padStart(2, '0')} - ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
         .toString().padStart(2, '0')}/${date.getFullYear()}`
 }
 
-const formatDuration = (milliseconds) => {
+const formatDuration = (milliseconds: number) => {
     const minutes = Math.floor(milliseconds / 60000)
     return `${minutes} minutos`
 }
 
-const verDetalles = (id) => {
+const verDetalles = (id: string) => {
     router.push(`/trips/${id}`)
 }
 </script>

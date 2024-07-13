@@ -30,7 +30,7 @@ describe('TripsList', () => {
 
         const filas = wrapper.findAll('tr')
 
-        expect(mockTripsApi.getTrips).toHaveBeenCalledWith({ start_gte: null, start_lte: null })
+        expect(mockTripsApi.getTrips).toHaveBeenCalledWith({ start_gte: undefined, start_lte: undefined })
         expect(filas).toHaveLength(6)
 
         const primeraFila = filas[1]
@@ -84,7 +84,7 @@ describe('TripsList', () => {
 
         const filas = wrapper.findAll('tr')
 
-        expect(mockTripsApi.getTrips).toHaveBeenLastCalledWith({ start_gte: null, start_lte: 1642377600000 })
+        expect(mockTripsApi.getTrips).toHaveBeenLastCalledWith({ start_gte: undefined, start_lte: 1642377600000 })
         expect(filas).toHaveLength(1)
     })
 
