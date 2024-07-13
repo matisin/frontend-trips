@@ -41,6 +41,7 @@ pnpm test:unit
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
+no alncance a probar los test e2e, me hubiera gustado poder conectar el front con el back aca.
 pnpm test:e2e:dev
 ```
 
@@ -60,3 +61,11 @@ pnpm test:e2e
 pnpm lint
 ```
 # frontend-trips
+
+### Docker
+
+se recomienda correr el docker compose del repositorio del backend y dejar los dos repositorios juntos para 
+que se pueda encontrar el repo del front desde el docker compose. es decir:
+
+frontend-trips/
+backend-trips/
