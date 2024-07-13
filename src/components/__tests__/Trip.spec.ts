@@ -14,6 +14,7 @@ describe('TripDetail', () => {
         vi.mock('vue-router')
         vi.mock('leaflet', () => ({
             default: {
+                icon: vi.fn().mockReturnValue({ icon: true }),
                 map: vi.fn(() => ({
                     setView: vi.fn(() => ({
                         fitBounds: vi.fn(),
@@ -70,8 +71,8 @@ describe('TripDetail', () => {
         await flushPromises()
 
         // Verifica que se hayan creado marcadores para el inicio y fin del viaje
-        expect(L.marker).toHaveBeenCalledWith([-33.3867, -70.5454]) // Inicio
-        expect(L.marker).toHaveBeenCalledWith([-33.4422, -70.6459]) // Fin
+        expect(L.marker).toHaveBeenNthCalledWith(1, [-33.580158, -70.567227], { icon: expect.any(Object) }) // Inicio
+        expect(L.marker).toHaveBeenNthCalledWith(2, [-33.580462, -70.567177], { icon: expect.any(Object) }) // Fin
     })
 
     it('displays correct trip information', async () => {
