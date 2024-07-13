@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { watch, ref, onMounted, computed } from 'vue'
+import { watch, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useTripStore } from '../stores/trips.store'

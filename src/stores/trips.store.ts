@@ -11,13 +11,13 @@ export const useTripStore = defineStore('trips', {
         async fetchTrips(filters: TripFilters) {
             try {
                 const response = await this.api.getTrips(filters)
-                this.setTrips(response, filters)
+                this.setTrips(response)
             } catch (error) {
                 console.error('Error fetching trips:', error)
                 throw error
             }
         },
-        setTrips(response: ApiResponse<Trip[]>, filters: TripFilters) {
+        setTrips(response: ApiResponse<Trip[]>) {
             this.trips = response.data
         },
         setApi(api: TripsApi) {
