@@ -59,5 +59,5 @@ que se pueda encontrar el repo del front desde el docker compose. es decir:
 
 ```
 frontend-trips/
-backend-trip
+backend-trip/
 ```
